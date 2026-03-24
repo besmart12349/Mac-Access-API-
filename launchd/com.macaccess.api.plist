@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.macaccess.api</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-lc</string>
+        <string>/ABSOLUTE/PATH/TO/Mac-Access-API-/scripts/run_server.sh</string>
+    </array>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/mac-access-api.out.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/tmp/mac-access-api.err.log</string>
+
+    <key>WorkingDirectory</key>
+    <string>/ABSOLUTE/PATH/TO/Mac-Access-API-</string>
+</dict>
+</plist>
