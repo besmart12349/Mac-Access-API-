@@ -12,21 +12,30 @@ def enforce_schedule() -> None:
     if not settings.schedule_enabled:
         return
 
-    now = datetime.now(ZoneInfo(settings.schedule_timezone))
-    current_hour = now.hour
-    start_hour = settings.schedule_start_hour
-    end_hour = settings.schedule_end_hour
+    start = settings.schedule_start_hour
+    end = settings.schedule_end_hour
 
-    if start_hour <= end_hour:
-        allowed = start_hour <= current_hour <= end_hour
+    # Guard against ambiguous zero-width window
+    if start == end:
+        return
+
+    try:
+        now = datetime.now(ZoneInfo(settings.schedule_timezone))
+    except Exception:
+        return  # bad timezone string — fail open rather than lock out
+
+    h = now.hour
+    if start < end:
+        allowed = start <= h <= end
     else:
-        allowed = current_hour >= start_hour or current_hour <= end_hour
+        # Overnight window e.g. 22:00 – 06:00
+        allowed = h >= start or h <= end
 
     if not allowed:
         raise HTTPException(
             status_code=status.HTTP_423_LOCKED,
             detail=(
-                f"API access locked by schedule. Allowed hours: {start_hour:02d}:00"
-                f"-{end_hour:02d}:59 ({settings.schedule_timezone})"
+                f"API locked by schedule. Allowed: {start:02d}:00\u2013{end:02d}:59 "
+                f"({settings.schedule_timezone})"
             ),
         )

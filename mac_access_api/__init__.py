@@ -1,1 +1,1 @@
-"""Mac Access API package."""
+"""Mac Access API v0.2.0"""
