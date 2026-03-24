@@ -7,6 +7,7 @@ dev:
 	./scripts/run_server.sh
 
 test:
+	@if [ ! -d .venv ]; then ./scripts/bootstrap.sh; fi
 	. .venv/bin/activate && pytest -q
 
 install-service:

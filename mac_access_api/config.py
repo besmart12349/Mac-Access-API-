@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     schedule_end_hour: int = Field(23, alias="MAC_ACCESS_SCHEDULE_END_HOUR")
     schedule_timezone: str = Field("UTC", alias="MAC_ACCESS_SCHEDULE_TZ")
     kill_switch_file: str = Field("~/.mac_access_api.kill", alias="MAC_ACCESS_KILL_SWITCH_FILE")
+    allow_insecure_default_key: bool = Field(False, alias="MAC_ACCESS_ALLOW_INSECURE_KEY")
 
     @property
     def allowed_path_list(self) -> list[Path]:

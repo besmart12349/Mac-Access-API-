@@ -24,4 +24,14 @@ if [[ -z "${MAC_ACCESS_API_KEY:-}" ]]; then
   exit 1
 fi
 
+# uvicorn availability check (common typo: 'unicorn')
+if ! python - <<'PY' >/dev/null 2>&1
+import importlib.util
+raise SystemExit(0 if importlib.util.find_spec("uvicorn") else 1)
+PY
+then
+  echo "Missing dependency: uvicorn. Run ./scripts/bootstrap.sh (or pip install -e '.[dev]')."
+  exit 1
+fi
+
 exec python -m uvicorn mac_access_api.main:app --host "${MAC_ACCESS_HOST:-0.0.0.0}" --port "${MAC_ACCESS_PORT:-8787}"

@@ -1,6 +1,7 @@
 import os
 
 os.environ["MAC_ACCESS_API_KEY"] = "change-me-now"
+os.environ["MAC_ACCESS_ALLOW_INSECURE_KEY"] = "true"
 
 from fastapi.testclient import TestClient
 

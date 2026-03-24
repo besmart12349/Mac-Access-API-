@@ -121,3 +121,14 @@ curl -s -X POST http://127.0.0.1:8787/api/v1/mac/volume \
 - `POST /api/v1/kill/clear`
 - `GET /mcp/stream`
 - `GET /api/v1/remote-options`
+
+
+## Troubleshooting
+
+- If you see an error about `uvicorn` (sometimes mistyped as "unicorn"), run:
+  - `make bootstrap`
+- If startup says default API key is not allowed, regenerate env/key with:
+  - `./scripts/bootstrap.sh`
+- If launchd install fails, verify these files exist:
+  - `launchd/com.macaccess.api.plist`
+  - `scripts/run_server.sh`
