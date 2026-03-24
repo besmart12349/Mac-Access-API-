@@ -43,3 +43,13 @@ class ScreenCaptureRequest(BaseModel):
 
 class ClipboardRequest(BaseModel):
     content: str
+
+
+class MessageRequest(BaseModel):
+    title: str = Field("Mac Access API")
+    message: str
+
+
+class SpeakRequest(BaseModel):
+    message: str
+    voice: str | None = Field(default=None, examples=["Samantha", "Alex"])

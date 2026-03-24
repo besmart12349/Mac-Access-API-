@@ -23,6 +23,29 @@ make install-service
 make status
 ```
 
+
+
+## Where to send API messages
+
+Use this base URL for all API calls:
+
+- Local dev: `http://127.0.0.1:8787`
+- LAN/remote: `http://<mac-ip-or-domain>:8787`
+
+Include header on every request:
+
+- `X-API-Key: <your key from .env>`
+
+Interactive API docs are available at:
+
+- `GET /docs` (Swagger UI)
+- `GET /openapi.json` (OpenAPI spec)
+
+Message-specific endpoints:
+
+- `POST /api/v1/messages/notify` → show a macOS notification
+- `POST /api/v1/messages/speak` → speak message audio through the Mac
+
 ## Required security baseline
 
 - All endpoints require `X-API-Key`.

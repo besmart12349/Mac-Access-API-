@@ -13,9 +13,11 @@ from mac_access_api.models import (
     DirListRequest,
     FileReadRequest,
     FileWriteRequest,
+    MessageRequest,
     OpenRequest,
     ProcessSignalRequest,
     ScreenCaptureRequest,
+    SpeakRequest,
     TerminalRequest,
     VolumeRequest,
 )
@@ -146,6 +148,18 @@ def mac_clipboard_get() -> dict:
 @app.post("/api/v1/mac/clipboard", dependencies=[Depends(verify_api_key)])
 def mac_clipboard_set(payload: ClipboardRequest) -> dict:
     return services.set_clipboard(payload.content)
+
+
+
+
+@app.post("/api/v1/messages/notify", dependencies=[Depends(verify_api_key)])
+def message_notify(payload: MessageRequest) -> dict:
+    return services.send_notification(payload.title, payload.message)
+
+
+@app.post("/api/v1/messages/speak", dependencies=[Depends(verify_api_key)])
+def message_speak(payload: SpeakRequest) -> dict:
+    return services.speak_message(payload.message, payload.voice)
 
 
 @app.post("/api/v1/kill", dependencies=[Depends(verify_api_key)])

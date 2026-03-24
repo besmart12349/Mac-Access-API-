@@ -47,3 +47,8 @@ def test_volume_payload_validation():
 def test_kill_clear_endpoint_exists():
     response = client.post("/api/v1/kill/clear", headers=AUTH)
     assert response.status_code == 200
+
+
+def test_message_notify_requires_key():
+    response = client.post("/api/v1/messages/notify", json={"title": "t", "message": "m"})
+    assert response.status_code == 401

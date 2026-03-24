@@ -233,3 +233,25 @@ def take_screenshot(path: str) -> dict:
     result["action"] = "screenshot"
     result["path"] = str(resolved)
     return result
+
+
+def send_notification(title: str, message: str) -> dict:
+    escaped_title = title.replace('"', '\\"')
+    escaped_message = message.replace('"', '\\"')
+    script = f'display notification "{escaped_message}" with title "{escaped_title}"'
+    result = run_applescript(script)
+    result["action"] = "notify"
+    return result
+
+
+def speak_message(message: str, voice: str | None = None) -> dict:
+    escaped_message = message.replace('"', '\\"')
+    if voice:
+        escaped_voice = voice.replace('"', '\\"')
+        command = f'say -v "{escaped_voice}" "{escaped_message}"'
+    else:
+        command = f'say "{escaped_message}"'
+    result = run_shell(command)
+    result["action"] = "speak"
+    result["voice"] = voice
+    return result
